@@ -13,7 +13,7 @@ namespace WebAppPolyclinic.Controllers
             Dictionary<string, object> data
                 = new Dictionary<string, object>();
             data.Add("Ключ", "Значение");
-            //justcomment
+            
             return View(data);
         }
 
