@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using WebAppPolyclinic.Infrastructure;
 
-namespace WebAppPolyclinic.App_Start
+//[assembly: OwinStartup(typeof(WebAppPolyclinic.App_Start.IdentityConfig))]
+
+namespace WebAppPolyclinic
 {
     public class IdentityConfig
     {
