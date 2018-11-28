@@ -25,7 +25,7 @@ namespace WebAppPolyclinic.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { UserName = model.Name, Surname = model.Surname, Patronymic = model.Patronymic,  Email = model.Email, Password = model.Password};
+                User user = new User { UserName = model.Login, Name = model.Name, Surname = model.Surname, Patronymic = model.Patronymic,  Email = model.Email, Password = model.Password};
                 IdentityResult result =
                     await UserManager.CreateAsync(user, model.Password);
 

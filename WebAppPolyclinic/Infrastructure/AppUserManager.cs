@@ -21,6 +21,22 @@ namespace WebAppPolyclinic.Infrastructure
         {
             AppIdentityDbContext db = context.Get<AppIdentityDbContext>();
             AppUserManager manager = new AppUserManager(new UserStore<User>(db));
+
+            manager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 6,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = true,
+                RequireUppercase = true
+            };
+
+            manager.UserValidator = new CustomUserValidator(manager)
+            {
+                //AllowOnlyAlphanumericUserNames = true,
+                RequireUniqueEmail = true
+            };
+
             return manager;
         }
     }

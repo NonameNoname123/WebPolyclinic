@@ -9,6 +9,12 @@ namespace WebAppPolyclinic.Models
     public class CreateModel
     {
         [Required]
+        public string Login { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [Required]
@@ -19,7 +25,6 @@ namespace WebAppPolyclinic.Models
         [Required]
         public string Email { get; set; }
 
-        [Required]
-        public string Password { get; set; }
+        
     }
 }
