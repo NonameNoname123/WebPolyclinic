@@ -25,6 +25,20 @@ namespace WebAppPolyclinic.Infrastructure
                 result = new IdentityResult(errors);
             }
 
+            if (user.Name == string.Empty)
+            {
+                var errors = result.Errors.ToList();
+                errors.Add("Поле 'Имя' не должно быть пустым");
+                result = new IdentityResult(errors);
+            }
+
+            if (user.Surname == string.Empty)
+            {
+                var errors = result.Errors.ToList();
+                errors.Add("Поле 'Фамилия' не должно быть пустым");
+                result = new IdentityResult(errors);
+            }
+
             return result;
         }
     }

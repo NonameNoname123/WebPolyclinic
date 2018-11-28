@@ -37,6 +37,8 @@ namespace WebAppPolyclinic.Infrastructure
                 RequireUniqueEmail = true
             };
 
+
+
             return manager;
         }
     }

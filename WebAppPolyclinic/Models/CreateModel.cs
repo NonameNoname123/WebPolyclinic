@@ -23,8 +23,12 @@ namespace WebAppPolyclinic.Models
         public string Patronymic { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
+        [Required]
+        public string Email { get; set; }
         
+        [Required]
+        public bool Doctor { get; set; }
     }
 }

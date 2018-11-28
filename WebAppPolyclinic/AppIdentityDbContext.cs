@@ -12,6 +12,10 @@ namespace WebAppPolyclinic
     {
         public AppIdentityDbContext() : base("name=IdentityDb") { }
 
+
+        public DbSet<Doctor> Doctors { get; set; }
+
+
         static AppIdentityDbContext()
         {
             Database.SetInitializer<AppIdentityDbContext>(new IdentityDbInit());
