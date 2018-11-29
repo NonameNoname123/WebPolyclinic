@@ -22,6 +22,8 @@ namespace WebAppPolyclinic.Models
 
         public string Patronymic { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         [Required]
         public DateTime DateOfBirth { get; set; }
 
@@ -30,8 +32,14 @@ namespace WebAppPolyclinic.Models
         
         [Required]
         public bool Doctor { get; set; }
-
-        //[Required]
         public string Speciality { get; set; }
+
+        [Required]
+        public bool Admin { get; set; }
+
+        public bool Patient { get; set; }
+        public string Policy { get; set; }
+        public string Passport { get; set; }
+        public string Address { get; set; }
     }
 }

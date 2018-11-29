@@ -10,7 +10,7 @@ namespace WebAppPolyclinic.Models
     public abstract class BaseIdentificator
     {
             [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-            public int ID { get; set; }
+            public int Id { get; set; }
             //public string Speciality { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace WebAppPolyclinic.Controllers
                     Name = model.Name,
                     Surname = model.Surname,
                     Patronymic = model.Patronymic,
+                    PhoneNumber = model.PhoneNumber,
                     DateOfBirth = model.DateOfBirth,
                     //DateTime.TryParse(model.DateOfBirth, DateOfBirth),
                     AddDate = DateTime.Now,
@@ -47,6 +48,31 @@ namespace WebAppPolyclinic.Controllers
                     db.SaveChanges();
 
                 }
+
+                if (model.Patient)
+                {
+                    AppIdentityDbContext db = new AppIdentityDbContext();
+
+                    db.Patients.Add(new Patient()
+                    {
+                        Policy = model.Policy,
+                        Passport = model.Passport,
+                        Address = model.Address
+                    });
+                    db.SaveChanges();
+                }
+
+                //if (model.Patient)
+                //{
+                //    user.Patient = new Patient();
+                //}
+
+                if (model.Admin)
+                {
+                   user.Admin = new Admin();
+                }
+
+
 
                 IdentityResult result =
                     await UserManager.CreateAsync(user, model.Password);
@@ -107,7 +133,7 @@ namespace WebAppPolyclinic.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(string id, string name, string surname, string patronymic, string email, string password)
+        public async Task<ActionResult> Edit(string id, string name, string surname, string patronymic, string phoneNumber, DateTime dateOfBirth, string email, string password)
         {
             //Получение пользователя из БД
             User user = await UserManager.FindByIdAsync(id);
@@ -115,6 +141,8 @@ namespace WebAppPolyclinic.Controllers
             {
 
                 //Обновляем его мейл
+                user.PhoneNumber = phoneNumber;
+                user.DateOfBirth = dateOfBirth;
                 user.Email = email;
                 user.Name = name;
                 user.Surname = surname;

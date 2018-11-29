@@ -18,6 +18,7 @@
                 <th>Имя</th>
                 <th>Фамилия</th>
                 <th>Отчество</th>
+                <th>Номер телефона</th>
                 <th>Email</th>
                 <th>Дата Рождения</th>
                 <th>Зарегестрирован</th>
@@ -35,23 +36,24 @@
             {
                 foreach (User user in Model)
                 {
-                    <tr>
-                        <td>@user.UserName</td>
-                        <td>@user.Name</td>
-                        <td>@user.Surname</td>
-                        <td>@user.Patronymic</td>
-                        <td>@user.Email</td>
-                        <td>@user.DateOfBirth.ToString("dd.MM.yyyy")</td>
-                        <td>@user.AddDate</td>
-                        <td>
-                            @using (Html.BeginForm("Delete", "Admin", new { id = user.Id }))
-                            {
-                                @Html.ActionLink("Изменить", "Edit", new { id = user.Id },
-                                 new { @class = "btn btn-primary btn-xs", style = "float: left; margin-right: 10px" })
-                                <button class="btn btn-danger btn-xs" type="submit">Удалить</button>
-                            }
-                        </td>
-                    </tr>
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Name</td>
+                    <td>@user.Surname</td>
+                    <td>@user.Patronymic</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Email</td>
+                    <td>@user.DateOfBirth.ToString("dd.MM.yyyy")</td>
+                    <td>@user.AddDate</td>
+                    <td>
+                        @using (Html.BeginForm("Delete", "Admin", new { id = user.Id }))
+                        {
+                            @Html.ActionLink("Изменить", "Edit", new { id = user.Id },
+                             new { @class = "btn btn-primary btn-xs", style = "float: left; margin-right: 10px" })
+                            <button class="btn btn-danger btn-xs" type="submit">Удалить</button>
+                        }
+                    </td>
+                </tr>
                 }
             }
         </tbody>

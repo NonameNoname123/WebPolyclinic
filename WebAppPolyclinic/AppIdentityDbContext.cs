@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
 using WebAppPolyclinic.Models;
@@ -16,9 +17,14 @@ namespace WebAppPolyclinic
                 new DropCreateDatabaseIfModelChanges<AppIdentityDbContext>());
         }
 
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        //}
 
         public DbSet<Doctor> Doctors { get; set; }
-
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Patient> Patients { get; set; }
 
         static AppIdentityDbContext()
         {
