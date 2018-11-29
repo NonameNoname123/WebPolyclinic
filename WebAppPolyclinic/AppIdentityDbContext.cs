@@ -10,7 +10,11 @@ namespace WebAppPolyclinic
 {
     public class AppIdentityDbContext : IdentityDbContext<User>
     {
-        public AppIdentityDbContext() : base("name=IdentityDb") { }
+        public AppIdentityDbContext() : base("name=IdentityDb")
+        {
+            Database.SetInitializer(
+                new DropCreateDatabaseIfModelChanges<AppIdentityDbContext>());
+        }
 
 
         public DbSet<Doctor> Doctors { get; set; }

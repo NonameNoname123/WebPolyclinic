@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity;
@@ -21,6 +22,8 @@ namespace WebAppPolyclinic.Infrastructure
         {
             AppIdentityDbContext db = context.Get<AppIdentityDbContext>();
             AppUserManager manager = new AppUserManager(new UserStore<User>(db));
+            
+            
 
             manager.PasswordValidator = new PasswordValidator
             {

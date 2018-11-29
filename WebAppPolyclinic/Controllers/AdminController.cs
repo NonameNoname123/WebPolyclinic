@@ -38,20 +38,32 @@ namespace WebAppPolyclinic.Controllers
 
                 if (model.Doctor)
                 {
-                    user.Doctor = new Doctor();
+                    AppIdentityDbContext db = new AppIdentityDbContext();
+
+                    db.Doctors.Add(new Doctor()
+                    {
+                        Speciality = model.Speciality
+                    });
+                    db.SaveChanges();
+
                 }
 
                 IdentityResult result =
                     await UserManager.CreateAsync(user, model.Password);
 
+                
+
                 if (result.Succeeded)
                 {
+                    
                     return RedirectToAction("Index");
                 }
                 else
                 {
                     AddErrorsFromResult(result);
                 }
+
+
             }
             return View(model);
         }

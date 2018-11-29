@@ -30,5 +30,8 @@ namespace WebAppPolyclinic.Models
         
         [Required]
         public bool Doctor { get; set; }
+
+        //[Required]
+        public string Speciality { get; set; }
     }
 }
