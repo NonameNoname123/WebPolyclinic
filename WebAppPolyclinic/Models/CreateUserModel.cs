@@ -6,10 +6,10 @@ using System.Web;
 
 namespace WebAppPolyclinic.Models
 {
-    public class CreateModel
+    public class CreateUserModel
     {
         [Required]
-        public string Login { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         public string Password { get; set; }
@@ -32,14 +32,15 @@ namespace WebAppPolyclinic.Models
         
         [Required]
         public bool Doctor { get; set; }
-        public string Speciality { get; set; }
+        public string DoctorSpeciality { get; set; }
 
         [Required]
         public bool Admin { get; set; }
 
+        [Required]
         public bool Patient { get; set; }
-        public string Policy { get; set; }
-        public string Passport { get; set; }
-        public string Address { get; set; }
+        public string PatientPolicy { get; set; }
+        public string PatientPassport { get; set; }
+        public string PatientAddress { get; set; }
     }
 }
