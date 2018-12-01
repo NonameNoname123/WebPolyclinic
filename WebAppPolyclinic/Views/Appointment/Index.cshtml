@@ -1,0 +1,55 @@
+﻿@using WebAppPolyclinic.Models
+@model IEnumerable<Appointment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Список приемов
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Тип приема</th>
+                <th>Дата и время</th>
+                <th>Продолжительность</th>
+                <th>Доктор</th>
+                <th>Пациент</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="3" class="text-center">Нет ни одного приема</td>
+                </tr>
+            }
+            else
+            {
+                foreach (Appointment appointment in Model)
+                {
+                <tr>
+                    @if (appointment.CommonAppointment == 1)
+                    {
+                        <td>Общий</td> }
+                    else
+                    {
+                        <td>Для зарегистрированных</td>}
+                    <td>@appointment.AppointmentDateTime@*.ToString("dd.MM.yyyy")*@</td>
+                    <td>@appointment.Duration</td>
+                    <td>@appointment.Doctor</td>
+                    @if (appointment.Patient != null)
+                    {<td>appointment.Patient</td> }
+                    else
+                    {<td>@Html.ActionLink("Записаться", "Create", null, new { @class = "btn btn-primary" })</td>}
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@*@Html.ActionLink("Создать", "Create", null, new { @class = "btn btn-primary" })*@
