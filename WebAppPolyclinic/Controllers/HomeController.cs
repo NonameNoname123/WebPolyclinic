@@ -1,21 +1,40 @@
-﻿using System;
+﻿using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using WebAppPolyclinic.Models;
 
 namespace WebAppPolyclinic.Controllers
 {
     public class HomeController : Controller
     {
-       //[Authorize]
-        public ActionResult Index()
+        private IAuthenticationManager AuthManager
         {
-            Dictionary<string, object> data
-                = new Dictionary<string, object>();
-            data.Add("Ключ", "Значение");
-            
-            return View(data);
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        //[Authorize]
+        public async Task<ActionResult> Index()
+        {
+
+            //LogginedUserInfo lui = null;
+
+            //if (
+            //AuthManager.User.Identity.IsAuthenticated)
+            //{
+            //    lui = await new LogginedUserInfo().getLogUserInfoAsync(
+            //        HttpContext.GetOwinContext(),
+            //        AuthManager.User.Identity.Name);
+            //}
+
+            //return View(lui);
+            return View();
         }
 
         public ActionResult About()

@@ -1,10 +1,25 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – приложение ASP.NET</title>
+
+    @if (ViewBag.Title != String.Empty)
+    {
+        <title>
+            @ViewBag.Title – поликлинника Владимир XXI
+        </title>
+
+    }
+    else
+    {
+        <title>
+            Поликлинника Владимир XXI
+        </title>
+    }
+
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -17,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Имя приложения", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Поликлиника Владимир XXI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -25,6 +40,20 @@
                     <li>@Html.ActionLink("О программе", "About", "Home")</li>
                     <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
                 </ul>
+                <div>
+                    @if (User.Identity.IsAuthenticated) // Если пользователь авторизирован
+                   // @if (ViewBag.User != null && ViewBag.User != String.Empty) // Если пользователь найден
+                    {
+                        @Html.ActionLink("Выйти", "Logout", "Account", null, new { @class = "btn btn-primary", @style = "float: right; margin: 10px 0; " })
+                        <ul class="nav navbar-nav" style="float:right">
+                            <li>@Html.ActionLink((string)User.Identity.Name, "Details", "Account", new { username = User.Identity.Name }, null)</li>
+                        </ul>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Войти", "Login", "Account", null, new { @class = "btn btn-primary", @style = "float: right; margin: 10px 0; " })
+                    }
+                </div>
             </div>
         </div>
     </div>

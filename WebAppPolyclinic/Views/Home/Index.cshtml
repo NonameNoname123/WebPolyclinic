@@ -1,17 +1,26 @@
 ﻿@using System.Collections.Generic
-@model Dictionary<string, object>
+@model WebAppPolyclinic.Models.LogginedUserInfo
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Главная";
+
+    //if (User != null) {
+    //    ViewBag.User = Model.UserName;
+    //}
+
+    ViewBag.User = User.Identity.Name;
+
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Панель записи в поликлинику Владимир XXI</h1>
+    <p class="lead">Если хотите посмотреть список доступных записей, перейдите на страницу:</p>
+    <p>
+        @Html.ActionLink("Список доступных приёмов", "Index", "Appointment", null, new { @class = "btn btn-primary btn-lg" })
+    </p>
 </div>
 
-<div class="panel panel-primary">
+@*<div class="panel panel-primary">
     <div class="panel-heading">Данные пользователей</div>
     <table class="table table-striped">
         @foreach (string key in Model.Keys)
@@ -22,6 +31,4 @@
             </tr>
         }
     </table>
-</div>
-
-@Html.ActionLink("Выйти", "Logout", "Account", null, new { @class = "btn btn-primary" })
+</div>*@

@@ -16,9 +16,37 @@ namespace WebAppPolyclinic.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private IAuthenticationManager AuthManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
+        }
+
+        private AppUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+            }
+        }
+
+
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+
+            if (AuthManager.User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (returnUrl == null || returnUrl == String.Empty)
+            {
+                returnUrl = "Index";
+            }
+
             ViewBag.returnUrl = returnUrl;
             return View();
         }
@@ -44,7 +72,7 @@ namespace WebAppPolyclinic.Controllers
                 {
                     IsPersistent = false
                 }, ident);
-                return Redirect(returnUrl);
+                return RedirectToAction("Index", "Home");
             }
 
             return View(details);
@@ -57,20 +85,39 @@ namespace WebAppPolyclinic.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private IAuthenticationManager AuthManager
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult> Details(string username)
         {
-            get
+            if (username == null)
             {
-                return HttpContext.GetOwinContext().Authentication;
+                username = User.Identity.Name;
+            }
+
+
+            User user = await UserManager.FindByNameAsync(username);
+            AppIdentityDbContext context = new AppIdentityDbContext();
+
+            if (user != null)
+            {
+                if (user.DoctorId != null)
+                {
+                    user.Doctor = await context.Doctors.FindAsync(user.DoctorId);
+                }
+
+                if (user.PatientId != null)
+                {
+                    user.Patient = await context.Patients.FindAsync(user.PatientId);
+                }
+
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Index");
             }
         }
 
-        private AppUserManager UserManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-            }
-        }
+        
     }
 }

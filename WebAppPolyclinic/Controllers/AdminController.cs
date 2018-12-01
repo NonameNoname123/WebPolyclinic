@@ -12,6 +12,22 @@ namespace WebAppPolyclinic.Controllers
 {
     public class AdminController : Controller
     {
+        private void AddErrorsFromResult(IdentityResult result)
+        {
+            foreach (string error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
+        private AppUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+            }
+        }
+
         public ActionResult Index()
         {
             return View(UserManager.Users);
@@ -276,25 +292,10 @@ namespace WebAppPolyclinic.Controllers
             {
                 ModelState.AddModelError("", "Пользователь не найден");
             }
-            return View(user);
+            return View(model);
         }
 
 
 
-        private void AddErrorsFromResult(IdentityResult result)
-        {
-            foreach (string error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-
-        private AppUserManager UserManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
-            }
-        }
     }
 }
