@@ -2,10 +2,10 @@
 @model IEnumerable<Appointment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Список доступных приёмов";
 }
 
-<h2>Index</h2>
+<h2>Список доступных приёмов</h2>
 
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -18,7 +18,11 @@
                 <th>Дата и время</th>
                 <th>Продолжительность</th>
                 <th>Доктор</th>
-                <th>Пациент</th>
+                <th>Записаться</th>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <th>Админ</th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -33,23 +37,44 @@
                 foreach (Appointment appointment in Model)
                 {
                 <tr>
-                    @if (appointment.CommonAppointment == 1)
+                    @if (appointment.CommonAppointment)
                     {
-                        <td>Общий</td> }
+                        <td>Общий</td>
+                    }
                     else
                     {
-                        <td>Для зарегистрированных</td>}
+                        <td>Для зарегистрированных</td>
+                    }
                     <td>@appointment.AppointmentDateTime@*.ToString("dd.MM.yyyy")*@</td>
                     <td>@appointment.Duration</td>
-                    <td>@appointment.Doctor</td>
-                    @if (appointment.Patient != null)
-                    {<td>appointment.Patient</td> }
+                    <td>@appointment.Doctor.Surname @appointment.Doctor.Name</td>
+                    @if (appointment.Patient != null || !User.Identity.IsAuthenticated && !appointment.CommonAppointment)
+                    {
+                        <td>Этот приём ещё не изучен</td>
+                    }
                     else
-                    {<td>@Html.ActionLink("Записаться", "Create", null, new { @class = "btn btn-primary" })</td>}
+                    {
+                        <td>@Html.ActionLink("Записаться", "MakeApp", "Appointment", new { id = appointment.Id }, new { @class = "btn btn-primary btn-xs" })</td>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <th>
+                            @Html.ActionLink("Ред.", "Edit", "Appointment", new { id = appointment.Id }, new { @class = "btn btn-primary btn-xs" })
+                            @Html.ActionLink("Уд.", "Delete", "Appointment", new { id = appointment.Id }, new { @class = "btn btn-danger btn-xs" })
+                         </th>
+                    }
                 </tr>
                 }
             }
         </tbody>
     </table>
+
+
 </div>
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    @Html.ActionLink("Добавить запись", "Create", "Appointment", null, new { @class = "btn btn-primary" })
+}
 @*@Html.ActionLink("Создать", "Create", null, new { @class = "btn btn-primary" })*@

@@ -194,6 +194,7 @@
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\BaseIdentificator.cs" />
+    <Compile Include="Models\CreateAppointment.cs" />
     <Compile Include="Models\EditUserModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\CreateUserViewModel.cs" />
@@ -254,6 +255,9 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Appointment\Index.cshtml" />
+    <Content Include="Views\Appointment\Create.cshtml" />
+    <Content Include="Views\Appointment\Error.cshtml" />
+    <Content Include="Views\Appointment\MakeApp.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

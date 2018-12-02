@@ -1,0 +1,47 @@
+﻿@model WebAppPolyclinic.Models.CreateAppointment
+
+@{
+    ViewBag.Title = "Добавиить приемы";
+}
+
+<h2>Добавить прием</h2>
+
+@Html.ValidationSummary(false)
+@using (Html.BeginForm())
+{
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.CheckBoxFor(x => x.CommonAppointment, new { @class = "form-check-input" })
+            @Html.LabelFor(x => x.CommonAppointment, "Этот приём общий", new { @class = "form-check-label" })
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Время начала</label>
+            @Html.TextBoxFor(x => x.StartDateTime, new { @class = "form-control" })
+        </div>
+    </div>
+      <div class="col-md-12">
+        <div class="form-group">
+            <label>Время конца</label>
+            @Html.TextBoxFor(x => x.FinDateTime, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Продолжительность приема</label>
+            @Html.TextBoxFor(x => x.Duration, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Врач</label>
+            @Html.TextBoxFor(x => x.Doctor, new { @class = "form-control" })
+        </div>
+    </div>  
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-primary">Создать</button>
+
+        @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-default" })
+    </div>
+}

@@ -7,10 +7,10 @@ namespace WebAppPolyclinic.Models
 {
     public class Appointment : BaseIdentificator
     {
-        public byte CommonAppointment { get; set; }
+        public bool CommonAppointment { get; set; }
         public DateTime AppointmentDateTime { get; set; }
         public long Duration { get; set; }
-        public Doctor Doctor { get; set; }
-        public Patient Patient { get; set; }
+        public User Doctor { get; set; }
+        public User Patient { get; set; }
     }
 }
