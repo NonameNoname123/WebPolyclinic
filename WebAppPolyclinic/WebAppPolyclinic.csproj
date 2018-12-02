@@ -187,6 +187,7 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MedCardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -202,6 +203,7 @@
     <Compile Include="Models\CreateUserViewModel.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\LogginedUserInfo.cs" />
+    <Compile Include="Models\MedCard.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,6 +265,8 @@
     <Content Include="Views\Doctor\Index.cshtml" />
     <Content Include="Views\Doctor\Appointment.cshtml" />
     <Content Include="Views\Doctor\AppArchive.cshtml" />
+    <Content Include="Views\MedCard\Index.cshtml" />
+    <Content Include="Views\Admin\apps.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

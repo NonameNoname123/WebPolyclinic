@@ -1,0 +1,43 @@
+﻿@using WebAppPolyclinic.Models
+@model IEnumerable<MedCard>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Список приемов
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Дата и время</th>
+                @*<th>Доктор</th>*@
+                <th>Запись</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="3" class="text-center">Нет ни одной записи</td>
+                </tr>
+            }
+            else
+            {
+                foreach (MedCard medCard in Model)
+                {
+                    <tr>
+                        <td>@medCard.CreateDT</td>
+                        @*<td>@medCard.Appointment.Doctor.Surname @medCard.Appointment.Doctor.Name</td>*@
+                        <td>@Html.ActionLink("Посмотреть", "AppArchive", "Doctor", new { id = medCard.Appointment.Id }, new { @class = "btn btn-default btn-xs" })</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+</div>
+

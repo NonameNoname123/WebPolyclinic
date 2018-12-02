@@ -88,6 +88,14 @@ namespace WebAppPolyclinic.Controllers
 
             if (app.Status != 1) RedirectToAction("Index");
 
+            MedCard medCard = new MedCard();
+
+            medCard.Message = detApp.Message;
+            medCard.CreateDT = DateTime.Now;
+            medCard.Patient = app.Patient;
+            medCard.Appointment = app;
+
+            context.MedCards.Add(medCard);
 
             app.Status = 2;
 
@@ -123,6 +131,7 @@ namespace WebAppPolyclinic.Controllers
 
 
             AppIdentityDbContext context = new AppIdentityDbContext();
+            
 
             Appointment app = context // id = 1
                 .Appointments
@@ -136,7 +145,18 @@ namespace WebAppPolyclinic.Controllers
             detailApp.Doctor = app.Doctor;
             detailApp.AppointmentId = app.Id;
             detailApp.AppointmentDateTime = app.AppointmentDateTime;
-            detailApp.Message = "Message";
+
+            MedCard mc = context.MedCards.Where(x => x.Appointment.Id == app.Id).FirstOrDefault();
+            string msg;
+            if (mc ==null)
+            {
+                msg = "Этот приём не проводился";
+            } else
+            {
+                msg = mc.Message;
+            }
+
+            detailApp.Message = msg;
             return View(detailApp);
 
         }

@@ -78,6 +78,9 @@
                 <label>Выявляетесь доктором</label>
             </div>
             <div class="panel-body">
+                @Html.ActionLink("Перейти на список текущих приёмов", "Index", "Doctor", null, new { @class = "btn btn-primary" })
+            </div>
+            <div class="panel-body">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Специальность</label>
@@ -93,6 +96,9 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <label>Вы являетесь пациентом</label>
+            </div>
+            <div class="panel-body">
+                @Html.ActionLink("Посмотреть Ваши записи", "Index", "MedCard", null, new { @class = "btn btn-primary" })
             </div>
             <div class="panel-body">
                 <div class="col-md-6">
@@ -137,48 +143,48 @@
     </div>*@
 
 
-@if (Model.Doctor != null)
-{
-    <div id="doctor-fields" class="panel panel-default collapse">
-        <div class="panel-heading">Атрибуты доктора</div>
-        <div class="panel-body">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Специальность</label>
-                    <p class="form-control-static">@Model.Doctor.Speciality</p>
+@*@if (Model.Doctor != null)
+    {
+        <div id="doctor-fields" class="panel panel-default collapse">
+            <div class="panel-heading">Атрибуты доктора</div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Специальность</label>
+                        <p class="form-control-static">@Model.Doctor.Speciality</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
 
-@if (Model.Doctor != null)
-{
-    <div class="clearfix"></div>
-    <div id="patient-fields" class="panel panel-default collapse">
-        <div class="panel-heading">Атрибуты пациента</div>
-        <div class="panel-body">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Полис</label>
-                    <p class="form-control-static">@Model.Patient.Policy</p>
-                </div>
-            </div><div class="col-md-6">
-                <div class="form-group">
-                    <label>Паспорт</label>
-                    <p class="form-control-static">@Model.Patient.Passport</p>
-                </div>
-            </div><div class="col-md-6">
-                <div class="form-group">
-                    <label>Адрес</label>
-                    <p class="form-control-static">@Model.Patient.Address</p>
+    @if (Model.Doctor != null)
+    {
+        <div class="clearfix"></div>
+        <div id="patient-fields" class="panel panel-default collapse">
+            <div class="panel-heading">Атрибуты пациента</div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Полис</label>
+                        <p class="form-control-static">@Model.Patient.Policy</p>
+                    </div>
+                </div><div class="col-md-6">
+                    <div class="form-group">
+                        <label>Паспорт</label>
+                        <p class="form-control-static">@Model.Patient.Passport</p>
+                    </div>
+                </div><div class="col-md-6">
+                    <div class="form-group">
+                        <label>Адрес</label>
+                        <p class="form-control-static">@Model.Patient.Address</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
-    <div class="clearfix"></div>
-    <div class="col-md-12">
+    }*@
+<div class="clearfix"></div>
+<div class="col-md-12">
 
-        @Html.ActionLink("На главную", "Index", "Home", null, new { @class = "btn btn-default" })
-    </div>
+    @Html.ActionLink("На главную", "Index", "Home", null, new { @class = "btn btn-default" })
+</div>

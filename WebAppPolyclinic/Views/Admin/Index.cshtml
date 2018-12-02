@@ -12,7 +12,7 @@
         Учетные записи
     </div>
     <table class="table table-striped">
-        <thead >
+        <thead>
             <tr>
                 <th>Логин</th>
                 <th>Имя</th>
@@ -36,27 +36,28 @@
             {
                 foreach (User user in Model)
                 {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td>@user.Name</td>
-                    <td>@user.Surname</td>
-                    <td>@user.Patronymic</td>
-                    <td>@user.PhoneNumber</td>
-                    <td>@user.Email</td>
-                    <td>@user.DateOfBirth.ToString("dd.MM.yyyy")</td>
-                    <td>@user.AddDate</td>
-                    <td>
-                        @using (Html.BeginForm("Delete", "Admin", new { id = user.Id }))
-                        {
-                            @Html.ActionLink("Изменить", "Edit", new { id = user.Id },
-                             new { @class = "btn btn-primary btn-xs", style = "float: left; margin-right: 10px" })
-                            <button class="btn btn-danger btn-xs" type="submit">Удалить</button>
-                        }
-                    </td>
-                </tr>
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Name</td>
+                        <td>@user.Surname</td>
+                        <td>@user.Patronymic</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>@user.Email</td>
+                        <td>@user.DateOfBirth.ToString("dd.MM.yyyy")</td>
+                        <td>@user.AddDate</td>
+                        <td>
+                            @using (Html.BeginForm("Delete", "Admin", new { id = user.Id }))
+                            {
+                                @Html.ActionLink("Изменить", "Edit", new { id = user.Id },
+                                 new { @class = "btn btn-primary btn-xs", style = "float: left; margin-right: 10px" })
+                                <button class="btn btn-danger btn-xs" type="submit">Удалить</button>
+                            }
+                        </td>
+                    </tr>
                 }
             }
         </tbody>
     </table>
 </div>
 @Html.ActionLink("Создать", "Create", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("Посмотреть список приёмов", "apps", null, new { @class = "btn btn-default" })

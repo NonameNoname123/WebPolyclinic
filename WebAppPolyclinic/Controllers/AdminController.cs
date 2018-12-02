@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -97,6 +98,23 @@ namespace WebAppPolyclinic.Controllers
 
             }
             return View(model);
+        }
+
+        [Authorize]
+        public ActionResult apps()
+        {
+            AppIdentityDbContext context = new AppIdentityDbContext();
+            Appointment appointment = new Appointment();
+
+            User currentUser = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+
+            // если пользователь не найден (o_O)
+            if (currentUser == null) return RedirectToAction("Index", "Home");
+
+            // если пользователь не админ
+            if (currentUser.AdminId == null) return RedirectToAction("Index", "Home");
+
+            return View(context.Appointments.Include("Doctor"));//включая в запрос данные о докторе);
         }
 
         [HttpPost]
@@ -224,6 +242,7 @@ namespace WebAppPolyclinic.Controllers
                 if (model.Doctor) // если выбран админ (галочка)
                 {
                     user.Doctor = new Doctor();
+                    user.Doctor.Speciality = model.DoctorSpeciality;
                 }
                 else // если галочка убрана проверяем, был ли юзер админом, и если да -- убираем ему это свойство
                 {
