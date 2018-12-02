@@ -1,0 +1,58 @@
+﻿@model WebAppPolyclinic.Models.DetailApp
+
+@{
+    ViewBag.Title = "Данные о приеме";
+}
+
+<h2>Данные о приеме</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Номер приёма
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppointmentId)
+        </dd>
+
+        <dt>
+            Врач
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.Surname)
+            @Html.DisplayFor(model => model.Doctor.Name)
+        </dd>
+
+        <dt>
+            Пациент
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Patient.Surname)
+            @Html.DisplayFor(model => model.Patient.Name)
+        </dd>
+
+        <dt>
+            Дата и время
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppointmentDateTime)
+        </dd>
+
+        <dt>
+            Запись
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Закрыть", "Index")
+</p>

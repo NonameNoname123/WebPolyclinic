@@ -17,7 +17,7 @@
                 <th>Тип приема</th>
                 <th>Дата и время</th>
                 <th>Продолжительность</th>
-                <th>Доктор</th>
+                <th>Доктор</th> 
                 <th>Записаться</th>
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -50,7 +50,7 @@
                     <td>@appointment.Doctor.Surname @appointment.Doctor.Name</td>
                     @if (appointment.Patient != null || !User.Identity.IsAuthenticated && !appointment.CommonAppointment)
                     {
-                        <td>Этот приём ещё не изучен</td>
+                        <td>Этот приём не доступен</td>
                     }
                     else
                     {
@@ -61,7 +61,7 @@
                         <th>
                             @Html.ActionLink("Ред.", "Edit", "Appointment", new { id = appointment.Id }, new { @class = "btn btn-primary btn-xs" })
                             @Html.ActionLink("Уд.", "Delete", "Appointment", new { id = appointment.Id }, new { @class = "btn btn-danger btn-xs" })
-                         </th>
+                        </th>
                     }
                 </tr>
                 }

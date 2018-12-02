@@ -20,7 +20,7 @@ namespace WebAppPolyclinic.Controllers
             AppIdentityDbContext context = new AppIdentityDbContext();
             Appointment appointment = new Appointment();
 
-            return View(context.Appointments.Include(x => x.Doctor));
+            return View(context.Appointments.Include(x => x.Doctor));//включая в запрос данные о докторе
         }
 
         public ActionResult Create()
@@ -49,7 +49,7 @@ namespace WebAppPolyclinic.Controllers
                     CommonAppointment = model.CommonAppointment,
                     AppointmentDateTime = model.StartDateTime,
                     Duration = model.Duration,
-
+                    Status = 0
 
                 };
 
@@ -60,7 +60,7 @@ namespace WebAppPolyclinic.Controllers
 
                     if (app.Doctor == null)
                     {
-                        return RedirectToAction("Error", "Appointment", "Нет такого врачевского");
+                        return RedirectToAction("Error", "Appointment", "Нет такого врача");
                     }
                     else
                     {

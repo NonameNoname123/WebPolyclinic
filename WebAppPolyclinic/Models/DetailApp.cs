@@ -5,13 +5,12 @@ using System.Web;
 
 namespace WebAppPolyclinic.Models
 {
-    public class Appointment : BaseIdentificator
+    public class DetailApp 
     {
-        public bool CommonAppointment { get; set; }
+        public int AppointmentId { get; set; }
         public DateTime AppointmentDateTime { get; set; }
-        public long Duration { get; set; }
-        public User Doctor { get; set; }
         public User Patient { get; set; }
-        public int Status { get; set; }
+        public User Doctor { get; set; }
+        public string Message { get; set; }
     }
 }

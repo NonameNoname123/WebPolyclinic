@@ -1,0 +1,36 @@
+﻿@model WebAppPolyclinic.Models.DetailApp
+
+@{
+    /**/
+
+    ViewBag.Title = "Appointment";
+    
+
+}
+
+<h2>Приём №@Model.AppointmentId</h2>
+
+<div class="col-md-12">
+    <div class="form-group">
+        <label>Время приема</label>
+        <p class="form-control-static">@Model.AppointmentDateTime</p>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="form-group">
+        <label>Пациент</label>
+        <p class="form-control-static">@Model.Patient.Surname @Model.Patient.Name @Model.Patient.Patronymic</p>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+<div class="form-group">
+    <label>Запись в медицинскую карту</label>
+    @Html.TextAreaFor(x => x.Message, new { @class = "form-control" })
+</div>
+<div class="col-md-12">
+    @Html.TextAreaFor(x => x.AppointmentId, new { @class = "form-control collapse" })
+    <button type="submit" class="btn btn-primary">Сохранить и закрыть</button>
+    @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-default" })
+</div>
+}
