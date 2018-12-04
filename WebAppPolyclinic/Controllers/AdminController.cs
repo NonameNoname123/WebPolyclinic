@@ -31,7 +31,11 @@ namespace WebAppPolyclinic.Controllers
 
         public ActionResult Index()
         {
-            return View(UserManager.Users);
+            AppIdentityDbContext context = new AppIdentityDbContext();
+            User currentUser = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+
+            if (User.Identity.IsAuthenticated && currentUser.AdminId != null  ) return View(UserManager.Users); 
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Create()

@@ -19,18 +19,19 @@ namespace WebAppPolyclinic.Controllers
             User currentUser = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
 
             // если пользователь не найден (o_O)
-            if (currentUser == null) return RedirectToAction("Index", "Home");
+            //if (currentUser == null) return RedirectToAction("Index", "Home");
 
-            // если пользователь не доктор
+            // если пользователь не доктор и не найден
             if (currentUser.DoctorId == null) return RedirectToAction("Index","Home");
-            
-
-            return View(
+            if (User.Identity.IsAuthenticated && currentUser.DoctorId != null) return View(
                 context
                 .Appointments
                 .Include("Doctor")
                 .Include("Patient")
-                .Where(x => x.Doctor.UserName == currentUser.UserName));//включая в запрос данные о докторе
+                .Where(x => x.Doctor.UserName == currentUser.UserName));   //включая в запрос данные о докторе и пациенте
+            return RedirectToAction("Index", "Home");
+
+         
         }
 
         [HttpGet]
