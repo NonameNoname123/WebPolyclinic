@@ -192,7 +192,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AppUserManager.cs" />
-    <Compile Include="Infrastructure\CustomUserValidator.cs.cs" />
+    <Compile Include="Infrastructure\CustomUserValidator.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\BaseIdentificator.cs" />
@@ -266,7 +266,7 @@
     <Content Include="Views\Doctor\Appointment.cshtml" />
     <Content Include="Views\Doctor\AppArchive.cshtml" />
     <Content Include="Views\MedCard\Index.cshtml" />
-    <Content Include="Views\Admin\apps.cshtml" />
+    <Content Include="Views\Admin\Apps.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

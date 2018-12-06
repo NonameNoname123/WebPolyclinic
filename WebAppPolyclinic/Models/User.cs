@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace WebAppPolyclinic.Models
     {
 
         //public int Id { get; set; }
+        //[StringLength(50, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 50 символов")]
         public string  Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
@@ -21,9 +23,7 @@ namespace WebAppPolyclinic.Models
         public DateTime AddDate { get; set; }
         //public int Email { get; set; }
 
-        //public Doctor Doctor { get; set; }
-        //public Admin Admin { get; set; }
-        //public Patient Patient { get; set; }
+
 
 
         public int? AdminId { get; set; }

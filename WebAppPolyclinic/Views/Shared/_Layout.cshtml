@@ -7,15 +7,15 @@
 
     @if (ViewBag.Title != String.Empty)
     {
-        <title>
-            @ViewBag.Title – поликлиника Владимир XXI
-        </title>
+    <title>
+        @ViewBag.Title – поликлиника Dr. Mars
+    </title>
 
     }
     else
     {
         <title>
-            Поликлиника Владимир XXI
+            Поликлиника Dr. Mars
         </title>
     }
 
@@ -32,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Поликлиника Владимир XXI", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Dr. Mars", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
