@@ -6,8 +6,12 @@ using System.Web;
 
 namespace WebAppPolyclinic.Models
 {
-    public class CreateUserModel
+    public class AppCreateUserModel
     {
+
+        [Required]
+        public int AppId { get; set; }
+
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 50 символов")]
         [Required]
         public string UserName { get; set; }
@@ -34,25 +38,25 @@ namespace WebAppPolyclinic.Models
 
         [Required]
         public string Email { get; set; }
+        
+        //[Required]
+        //public bool Doctor { get; set; }
+        //[StringLength(50, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 50 символов")]
+        //public string DoctorSpeciality { get; set; }
 
-        [Required]
-        public bool Doctor { get; set; }
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 50 символов")]
-        public string DoctorSpeciality { get; set; }
+        //[Required]
+        //public bool Admin { get; set; }
 
-        [Required]
-        public bool Admin { get; set; }
+        //[Required]
+        //public bool Patient { get; set; }
 
-        [Required]
-        public bool Patient { get; set; }
+        //[StringLength(50)]
+        //public string PatientPolicy { get; set; }
 
-        [StringLength(50)]
-        public string PatientPolicy { get; set; }
+        //[StringLength(50)]
+        //public string PatientPassport { get; set; }
 
-        [StringLength(50)]
-        public string PatientPassport { get; set; }
-
-        [StringLength(50)]
-        public string PatientAddress { get; set; }
+        //[StringLength(50)]
+        //public string PatientAddress { get; set; }
     }
 }

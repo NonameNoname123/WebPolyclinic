@@ -105,7 +105,7 @@ namespace WebAppPolyclinic.Controllers
         }
 
         [Authorize]
-        public ActionResult apps()
+        public ActionResult Apps()
         {
             AppIdentityDbContext context = new AppIdentityDbContext();
             Appointment appointment = new Appointment();
@@ -118,7 +118,7 @@ namespace WebAppPolyclinic.Controllers
             // если пользователь не админ
             if (currentUser.AdminId == null) return RedirectToAction("Index", "Home");
 
-            return View(context.Appointments.Include("Doctor"));//включая в запрос данные о докторе);
+            return View(context.Appointments.Include("Doctor").Include("Patient"));//включая в запрос данные о докторе);
         }
 
         [HttpPost]

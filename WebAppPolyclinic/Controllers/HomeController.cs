@@ -20,7 +20,7 @@ namespace WebAppPolyclinic.Controllers
         }
 
         //[Authorize]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
 
             //LogginedUserInfo lui = null;

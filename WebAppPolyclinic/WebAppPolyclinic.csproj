@@ -197,6 +197,7 @@
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\BaseIdentificator.cs" />
     <Compile Include="Models\CreateAppointment.cs" />
+    <Compile Include="Models\AppCreateUserModel.cs" />
     <Compile Include="Models\DetailApp.cs" />
     <Compile Include="Models\EditUserModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
@@ -267,6 +268,7 @@
     <Content Include="Views\Doctor\AppArchive.cshtml" />
     <Content Include="Views\MedCard\Index.cshtml" />
     <Content Include="Views\Admin\Apps.cshtml" />
+    <Content Include="Views\Appointment\CreateNewUser.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

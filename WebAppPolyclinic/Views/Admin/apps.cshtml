@@ -15,9 +15,9 @@
         <thead>
             <tr>
                 <th>Тип приема</th>
+                <th>Доктор</th>
                 <th>Дата и время</th>
                 <th>Продолжительность</th>
-                <th>Доктор</th> 
                 <th>Записаться</th>
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -43,18 +43,32 @@
                     }
                     else
                     {
-                        <td>Для зарегистрированных</td>
+                        <td></td>
                     }
-                    <td>@appointment.AppointmentDateTime@*.ToString("dd.MM.yyyy")*@</td>
-                    <td>@appointment.Duration</td>
                     <td>@appointment.Doctor.Surname @appointment.Doctor.Name</td>
-                    @if (appointment.Patient != null || !User.Identity.IsAuthenticated && !appointment.CommonAppointment)
+                    <td>@appointment.AppointmentDateTime@*.ToString("dd.MM.yyyy")*@</td>
+                    <td>@appointment.Duration мин.</td>
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <td>Этот приём не доступен</td>
+                        if (appointment.Patient != null || !User.Identity.IsAuthenticated && !appointment.CommonAppointment)
+                        {
+                            <td>Не доступно</td>
+                        }
+                        else
+                        {
+                            <td>@Html.ActionLink("Записаться", "MakeApp", "Appointment", new { id = appointment.Id }, new { @class = "btn btn-primary btn-xs" })</td>
+                        }
                     }
                     else
                     {
-                        <td>@Html.ActionLink("Записаться", "MakeApp", "Appointment", new { id = appointment.Id }, new { @class = "btn btn-primary btn-xs" })</td>
+                        if (appointment.CommonAppointment && appointment.Patient == null)
+                        {
+                            <td>@Html.ActionLink("Записаться", "CreateNewUser", "Appointment", new { id = appointment.Id }, new { @class = "btn btn-primary btn-xs" })</td>
+                        }
+                        else
+                        {
+                            <td>Не доступно</td>
+                        }
                     }
                     @if (User.Identity.IsAuthenticated)
                     {

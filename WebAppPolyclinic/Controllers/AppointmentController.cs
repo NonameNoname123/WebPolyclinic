@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,14 +14,23 @@ namespace WebAppPolyclinic.Controllers
 {
     public class AppointmentController : Controller
     {
-        
+
+        private AppUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
+            }
+        }
+
+
         // GET: Appointment
         public ActionResult Index()
         {
             AppIdentityDbContext context = new AppIdentityDbContext();
             Appointment appointment = new Appointment();
 
-            return View(context.Appointments.Include(x => x.Doctor));//включая в запрос данные о докторе
+            return View(context.Appointments.Include(x => x.Doctor.Doctor).Include(x=>x.Patient));//включая в запрос данные о докторе
         }
 
         public ActionResult Create()
@@ -34,7 +44,7 @@ namespace WebAppPolyclinic.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(CreateAppointment model)
+        public ActionResult Create(CreateAppointment model)
         {
             AppIdentityDbContext context = new AppIdentityDbContext();
             Appointment appointment = new Appointment();
@@ -83,7 +93,7 @@ namespace WebAppPolyclinic.Controllers
                 // из финального времени вычитается стартовое время, остаток делится на время продолжительности каждого приёма.
                 count = (int)((model.FinDateTime.Ticks - model.StartDateTime.Ticks) / minutesTicks);
 
-                for (int i = 0;i<count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     Appointment app = new Appointment
                     {
@@ -111,34 +121,107 @@ namespace WebAppPolyclinic.Controllers
         public async Task<ActionResult> MakeApp(int id)
         {
             AppIdentityDbContext context = new AppIdentityDbContext();
-            Appointment appointment = await context.Appointments
+            Appointment app = await context.Appointments
                 .Include(x => x.Doctor)
                 .Where(x => x.Id == id)
                 .FirstOrDefaultAsync();
-            
 
-            return View(appointment);
+            // забивка данных о текущем пользователе как пациенте (но в БД пока оно не записывается), чтобы вьюшка решила выдать или нет юзеру возможность подписаться
+            app.Patient = await context.Users
+                .Include(x => x.Patient)
+                .Where(x => x.UserName == User.Identity.Name)
+                .FirstOrDefaultAsync();
+
+
+            return View(app);
         }
 
 
         [HttpGet]
-        public async Task<ActionResult> Accept(int id)
+        public ActionResult Accept(int id)
         {
+
             AppIdentityDbContext context = new AppIdentityDbContext();
-            Appointment appointment = context.Appointments
-                .Include(x => x.Doctor)
+
+            User currentUser = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            
+            Appointment app = context.Appointments
+                //.Include(x => x.Doctor)
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
+            // если это не открытый приём и юзверь не числится как зареганый пациент - отправляем на мороз
+            if (!app.CommonAppointment && currentUser.PatientId == null)
+            {
+                return RedirectToAction("Index");
+            }
+
             //AppUserManager uManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
 
-            appointment.Patient = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+            app.Patient = currentUser;
 
             context.SaveChanges();
 
             return RedirectToAction("Index");
         }
-        
+
+        [HttpGet]
+        public ActionResult CreateNewUser(int id)
+        {
+
+            return View(new AppCreateUserModel { AppId = id });
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateNewUser(AppCreateUserModel model)
+        {
+
+            AppIdentityDbContext context = new AppIdentityDbContext();
+
+            User user = null;
+            if (ModelState.IsValid)
+            {
+                user = new User
+                {
+                    UserName = model.UserName,
+                    Name = model.Name,
+                    Surname = model.Surname,
+                    Patronymic = model.Patronymic,
+                    PhoneNumber = model.PhoneNumber,
+                    DateOfBirth = model.DateOfBirth,
+                    //DateTime.TryParse(model.DateOfBirth, DateOfBirth),
+                    AddDate = DateTime.Now,
+                    Email = model.Email,
+                    Password = model.Password
+                };
+            }
+
+
+
+            IdentityResult result =
+                UserManager.Create(user, model.Password);
+
+
+
+            if (!result.Succeeded)
+            {
+
+                return RedirectToAction("Index");
+            }
+
+            Appointment appointment =  context.Appointments
+                //.Include(x => x.Doctor)
+                .Where(x => x.Id == model.AppId)
+                .FirstOrDefault();
+
+            //context.SaveChanges();
+
+            appointment.Patient = context.Users.Where(x => x.UserName == model.UserName).FirstOrDefault();
+
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
 
 
